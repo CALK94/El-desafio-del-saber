@@ -1,4 +1,6 @@
-package application;
+package controller;
+
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,9 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
-public class ElDesafioDelSaberController {
-
-    @FXML //anotacion definida para identificar y bautizar elemento en SceneBuilder
+public class controladorVentana {
+	
+	@FXML //anotacion definida para identificar y bautizar elemento en SceneBuilder
     private Label preguntaLabel;
 
     @FXML //anotacion definida para identificar y bautizar elemento en SceneBuilder
@@ -107,4 +109,6 @@ public class ElDesafioDelSaberController {
         grupoRespuestas.selectToggle(null); //si selecciona un boton y luego otro, deselecciona el anterior
        
     }
+	
+
 }
