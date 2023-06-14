@@ -142,7 +142,7 @@ public class controladorVentana {
         respuestaOpcion1RadioButton.setToggleGroup(grupoRespuestas); //es utilizado para agrupar los botones y asi solo se pueda seleccionar uno de ellos.
         respuestaOpcion2RadioButton.setToggleGroup(grupoRespuestas);
         respuestaOpcion3RadioButton.setToggleGroup(grupoRespuestas);
-        timer = new Timeline(new KeyFrame(Duration.seconds(3), this::temporizadorTerminado));	//se crea un objeto "Timeline" que inicializa en 12s y llama al metodo temporizadorTerminado cuando el temporizador finaliza
+        timer = new Timeline(new KeyFrame(Duration.seconds(12), this::temporizadorTerminado));	//se crea un objeto "Timeline" que inicializa en 12s y llama al metodo temporizadorTerminado cuando el temporizador finaliza
         timer.setCycleCount(1);		//se ejecutaa una sola vez, y luego hara las acciones del metodo temporizadorTerminado														
     }
     
