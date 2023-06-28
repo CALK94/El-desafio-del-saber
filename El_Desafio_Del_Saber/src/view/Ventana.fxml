@@ -23,6 +23,7 @@
 		<RadioButton fx:id="respuestaOpcion2RadioButton" layoutX="81.0" layoutY="170.0" mnemonicParsing="false" text="RadioButton" />
 		<RadioButton fx:id="respuestaOpcion3RadioButton" layoutX="81.0" layoutY="210.0" mnemonicParsing="false" text="RadioButton" />
 		<Button fx:id="enviarButton" layoutX="250.0" layoutY="278.0" mnemonicParsing="false" onAction="#enviarButtonClicked" prefHeight="25.0" prefWidth="125.0" text="Button" />
-		<Label fx:id="resultadoLabel" alignment="CENTER" layoutX="85.0" layoutY="323.0" prefHeight="49.0" prefWidth="455.0" text="Label" />     
+		<Label fx:id="resultadoLabel" alignment="CENTER" layoutX="85.0" layoutY="323.0" prefHeight="49.0" prefWidth="455.0" text="Label" />
+      <Button fx:id="reiniciarButton" layoutX="440.0" layoutY="360.0" mnemonicParsing="false" onAction="#reiniciarButtonClicked" prefHeight="25.0" prefWidth="125.0" text="Button" />     
    </children>
 </AnchorPane>

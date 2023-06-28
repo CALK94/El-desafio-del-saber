@@ -46,6 +46,9 @@ public class controladorVentana {
 
     @FXML //anotacion definida para identificar y bautizar elemento en SceneBuilder
     private Label resultadoLabel;
+    
+    @FXML //anotacion definida para identificar y bautizar elemento en SceneBuilder
+    private Button reiniciarButton;
 
     private ToggleGroup grupoRespuestas;				//Variable para la agrupacion de los Radio Button
     private String nombreUsuario;						//Variable para capturar el nombre del Usuario
@@ -126,6 +129,7 @@ public class controladorVentana {
         respuestaOpcion1RadioButton.setVisible(false);
         respuestaOpcion2RadioButton.setVisible(false);
         respuestaOpcion3RadioButton.setVisible(false);
+        reiniciarButton.setVisible(false);
     	nombreUsuarioTextField.setText("");
     	edadTextField.setText("");
     	iniciarButton.setText("Iniciar");
@@ -142,8 +146,11 @@ public class controladorVentana {
         respuestaOpcion1RadioButton.setToggleGroup(grupoRespuestas); //es utilizado para agrupar los botones y asi solo se pueda seleccionar uno de ellos.
         respuestaOpcion2RadioButton.setToggleGroup(grupoRespuestas);
         respuestaOpcion3RadioButton.setToggleGroup(grupoRespuestas);
-        timer = new Timeline(new KeyFrame(Duration.seconds(12), this::temporizadorTerminado));	//se crea un objeto "Timeline" que inicializa en 12s y llama al metodo temporizadorTerminado cuando el temporizador finaliza
-        timer.setCycleCount(1);		//se ejecutaa una sola vez, y luego hara las acciones del metodo temporizadorTerminado														
+        timer = new Timeline(new KeyFrame(Duration.seconds(5), this::temporizadorTerminado));	//se crea un objeto "Timeline" que inicializa en 12s y llama al metodo temporizadorTerminado cuando el temporizador finaliza
+        timer.setCycleCount(1);		//se ejecutaa una sola vez, y luego hara las acciones del metodo temporizadorTerminado	
+        reiniciarButton.setText("Reiniciar");
+        reiniciarButton.setOnAction(event -> reiniciarButtonClicked()); 
+
     }
     
     @FXML
@@ -152,6 +159,35 @@ public class controladorVentana {
         String edad = edadTextField.getText();			//caputra la edad que se ingrese en la variable edad
         edadUsuario = Integer.parseInt(edad);			//convierte la variable String edad a int
         mostrarPregunta();								//llama al metodo mostrarPregunta
+    }
+    
+    @FXML
+    private void reiniciarButtonClicked() {  //metodo que al darle click al boton reiniciar ejecuta el meotod reiniciarJuego   	
+    	reiniciarJuego();
+      }
+    
+    private void reiniciarJuego() { //metodo para reiniciar el juego totalmente
+    	 nombreLabel.setVisible(true);
+    	 nombreUsuarioTextField.setVisible(true); 
+         edadTextField.setVisible(true);
+         edadLabel.setVisible(true);
+         iniciarButton.setVisible(true);
+    	 nombreUsuarioTextField.setText("");
+    	 edadTextField.setText("");
+    	 iniciarButton.setText("Iniciar");
+    	 preguntaLabel.setVisible(false);
+    	 enviarButton.setVisible(false);
+    	 respuestaOpcion1RadioButton.setVisible(false);
+    	 respuestaOpcion2RadioButton.setVisible(false);
+    	 respuestaOpcion3RadioButton.setVisible(false);
+    	 reiniciarButton.setVisible(false);
+    	 resultadoLabel.setText("");
+    	 puntaje = 0;
+    	 indicePreguntaActualMenor18 = 0;		
+    	 indicePreguntaActualMayor18 = 0;
+    	 timer.stop();
+    	 enviarButton.setDisable(false);
+    	 enviarButton.setOnAction(this::enviarButtonClicked);
     }
     
     private void temporizadorTerminado(ActionEvent event) { //metodo que al terminar el temporizador se ejecuta
@@ -208,6 +244,7 @@ public class controladorVentana {
                  		resultadoLabel.setText("Respuesta incorrecta. La respuesta correcta era: " +	//mostrar este mensaje
                  				opcionesRespuestaMenor18[indicePreguntaActualMenor18][respuestasCorrectasMenor18[indicePreguntaActualMenor18]] + "\n" +
                                  "Juego terminado " + nombreUsuario + ", tu Puntuación: " + puntaje + "/" + preguntasMenor18.length);
+                 		timer.stop();
                  	}	
                  	enviarButton.setDisable(true);
                  }              
@@ -230,12 +267,15 @@ public class controladorVentana {
                  		resultadoLabel.setText("Respuesta incorrecta. La respuesta correcta era: " +	//mostrar este mensaje
                  				opcionesRespuestaMayor18[indicePreguntaActualMayor18][respuestasCorrectasMayor18[indicePreguntaActualMayor18]] + "\n" +
                                  "Juego terminado " + nombreUsuario + ", tu Puntuación: " + puntaje + "/" + preguntasMayor18.length);
+                 		timer.stop();
                  	}         	
                  	enviarButton.setDisable(true);
                  }
             }      
           
         }
+        
+       
     }
 
     private void mostrarPregunta() {	//este metodo actualiza los elementos de la interfaz grafica SceneBuilder
@@ -251,6 +291,8 @@ public class controladorVentana {
         enviarButton.setVisible(true);
     	nombreUsuarioTextField.setText("");
     	edadTextField.setText("");
+    	reiniciarButton.setVisible(true);
+    	
     	
     	if (edadUsuario < 18) {	//si... el usuario es menor de 18
     		preguntaLabel.setText(preguntasMenor18[indicePreguntaActualMenor18]);	//establece el texto en el label con la pregunta actual que obtiene del array
@@ -266,6 +308,10 @@ public class controladorVentana {
             grupoRespuestas.selectToggle(null); //si selecciona un boton y luego otro, deselecciona el anterior
     	}    	
     	timer.playFromStart(); //inicia el temporizador en 0 cada vez que llamen el metodo mostrarPregunta
+    	timer.stop();
+    	timer.play();
       }
+    
+    
         
 }
